@@ -256,7 +256,7 @@ const connectedGroup = ref(null);
 const loadingSkeleton = ref(true);
 const isLoading = ref(false);
 
-const isPlaying = ref(false);
+const isPlaying = ref(true);
 const contractName = "contract8080.testnet";
 
 const {

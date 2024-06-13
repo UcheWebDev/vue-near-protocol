@@ -1,10 +1,12 @@
 <template>
   <div class="board" v-if="startGame">
     <div class="content">
+      <!--dynamic word-->
       <p class="word fw-bold" style="color: #000" v-if="startGame">
         {{ scrambledWord }}
       </p>
-      <p v-else class="word">Start</p>
+      <p class="word fw-bold" style="color: #000">Waterfall</p>
+
       <div class="details text-center">
         <!-- <p class="hint">
           Hint: <span>{{ currentHint }}</span>
@@ -29,7 +31,7 @@
         <!-- <button class="refresh-word answer" @click="refreshWord">
           Use Hint
         </button> -->
-        <button class="startButton answer ms-3 fw-bold" @click="checkWord">
+        <button class="btn-style check-word ms-3 fw-bold" @click="checkWord">
           Check
         </button>
       </div>
@@ -225,18 +227,9 @@ input:focus {
   background-color: #fda215;
   padding: 15px 0;
 }
-.startButton:active {
-  position: relative;
-  top: 2px;
-}
-.startButton {
-  padding: 7px 0;
-}
 
-.answer {
+.check-word {
   width: 100%;
-  border-radius: 15px;
-  box-shadow: 0.5rem 0.5rem black;
   text-align: center;
   padding: 10px 0;
   margin: 10px 0;
