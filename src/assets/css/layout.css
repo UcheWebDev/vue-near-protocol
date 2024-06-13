@@ -47,6 +47,10 @@
 
   } */
 
+  #myQuestion{
+    font-size: 14px;
+  }
+
   .headDiv {
     position: fixed;
     top: 0;
@@ -150,7 +154,7 @@
     height: 63%;
     background: #F1F4F5;
     border:2px solid #EDEDED;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     box-sizing: border-box;
     padding: 20px 10px;
   }

@@ -2,15 +2,19 @@
   <div class="board" v-if="startGame">
     <div class="content">
       <!--dynamic word-->
-      <p class="word fw-bold" style="color: #000; font-size: 18px; line-height: normal;" v-if="startGame">
+      <p
+        class="word fw-bold"
+        style="color: #000; font-size: 18px; line-height: normal"
+        v-if="startGame"
+      >
         {{ scrambledWord }}
       </p>
-      <p class="word fw-bold" style="color: #000; font-size: 18px; line-height: normal;">Waterfall</p>
+      <!-- <p class="word fw-bold" style="color: #000; font-size: 18px; line-height: normal;">Waterfall</p> -->
 
       <div class="details text-center">
-        <!-- <p class="hint">
+        <p class="hint">
           Hint: <span>{{ currentHint }}</span>
-        </p> -->
+        </p>
         <p class="time font-styled">
           Time Left:
           <span
@@ -31,7 +35,7 @@
         <!-- <button class="refresh-word answer" @click="refreshWord">
           Use Hint
         </button> -->
-        <button class="btn-style check-word ms-3 fw-bold" @click="checkWord">
+        <button class="btn-style check-word ms-3" @click="checkWord">
           Check
         </button>
       </div>
@@ -132,7 +136,8 @@ watch(
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 .font-styled {
-  font-family: "Bubblegum Sans", sans-serif;
+  /* font-family: "Bubblegum Sans", sans-serif; */
+  font-weight: bold;
 }
 
 .board {
@@ -151,7 +156,7 @@ watch(
 
 .board .content {
   margin: 25px 20px 35px;
-  //padding: 20px;
+
   padding: 0;
   /* background: #fff; */
   border-radius: 3px;
@@ -236,7 +241,6 @@ input:focus {
   margin: 10px 0;
 }
 @media screen and (max-width: 470px) {
-
   .board h2 {
     font-size: 22px;
     padding: 13px 20px;

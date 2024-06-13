@@ -75,6 +75,8 @@ const closeModal = () => {
   position: fixed;
   right: 0;
   top: 0;
+  z-index: 9999; /* Ensure this is higher than other elements */
+
 }
 
 .modal-body {
@@ -84,7 +86,7 @@ const closeModal = () => {
   background: white!important;
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   width: 100%;
-  z-index: 1;
+  z-index: 10000; /* Ensure this is higher than other elements */
   border-radius: 8px;
   padding: 30px;
 }

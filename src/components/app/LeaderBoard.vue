@@ -84,8 +84,8 @@ tr {
 
 td {
   //   height: 5rem;
-  font-family: "Bubblegum Sans", sans-serif;
-  //   font-size: 1.4rem;
+  // font-family: "Bubblegum Sans", sans-serif;
+  // font-size: 14px;
   padding: 10px 2rem;
   position: relative;
 }
@@ -99,7 +99,7 @@ td {
 
 .name {
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 15px;
 }
 
 .points {

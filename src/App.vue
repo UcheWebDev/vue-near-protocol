@@ -3,7 +3,10 @@
   <div class="headDiv d-flex justify-content-between align-items-center">
     <h1 class="fw-bold">Memory Quest</h1>
     <div class="linkDiv">
-      <button class="btn-style transparent rounded fw-bold me-1" @click="showAboutModal = true">
+      <button
+        class="btn-style transparent rounded fw-bold me-1"
+        @click="showAboutModal = true"
+      >
         About Game
       </button>
       <button
@@ -87,11 +90,11 @@
   </div>
 
   <!-- QUESTION SECTION  -->
-  <div class="askDiv text-center">
+  <div class="askDiv text-center p-4">
     <div v-if="isSignedIn">
       <div>
         <h3 id="myQuestion">
-          <span class="text-success">"{{ accountId }}"</span>...
+          Connected as <span class="text-success"> "{{ accountId }}"</span>...
         </h3>
       </div>
     </div>
@@ -125,7 +128,7 @@
     :header="'Stake...'"
     v-model:isVisible="showJoinModal"
     @close="handleModalClose"
-    style="padding: 0 20px;"
+    style="padding: 0 20px"
   >
     <div class="d-flex justify-content-between gap-2 mt-4" v-if="actionPanel">
       <button
@@ -143,11 +146,18 @@
         JOIN
       </button>
       <button
-        class="action-btn nextButton d-flex justify-content-center align-items-center fw-bold ms-4"
+        class="btn-style large"
         @click="LeaveJoinedRoom"
         v-if="canParticipate"
       >
         LEAVE
+      </button>
+      <button
+        class="btn-style large"
+        @click="LeaveJoinedRoom"
+        v-if="canParticipate"
+      >
+        SHARE
       </button>
     </div>
 
@@ -159,10 +169,23 @@
           type="text"
           v-model="joinGroupName"
           placeholder=" "
-          style="background: white; border: 2px solid #EDEDED; border-radius: 20px;"
-
+          style="
+            background: white;
+            border: 2px solid #ededed;
+            border-radius: 20px;
+          "
         />
-        <span class="input__label" style="background: white; font-weight: 400; top: 4px;left: 10px;font-size: 14px;">Enter Space Name</span>
+        <span
+          class="input__label"
+          style="
+            background: white;
+            font-weight: 400;
+            top: 4px;
+            left: 10px;
+            font-size: 14px;
+          "
+          >Enter Space Name</span
+        >
       </label>
 
       <button class="btn-style full rounded" @click="joinExistingSpace">
@@ -185,19 +208,34 @@
           type="text"
           v-model="connectedGroup"
           placeholder=" "
+          style="
+            background: white;
+            border: 2px solid #ededed;
+            border-radius: 20px;
+          "
         />
-        <span class="input__label">Enter Space Name</span>
+        <span
+          class="input__label"
+          style="
+            background: white;
+            font-weight: 400;
+            top: 4px;
+            left: 10px;
+            font-size: 14px;
+          "
+          >Enter Space Name</span
+        >
       </label>
 
-      <button class="action-btn startButton fw-bold" @click="leaveConnectGroup">
+      <button class="btn-style full rounded" @click="leaveConnectGroup">
         <div
-          class="spinner-border spinner-border-sm text-dark"
+          class="spinner-border spinner-border-sm text-light"
           role="status"
           v-if="isLoading"
         >
           <span class="visually-hidden">Loading...</span>
         </div>
-        <div v-else>Leave</div>
+        <div v-else>LEAVE</div>
       </button>
     </div>
 
@@ -209,9 +247,23 @@
           type="text"
           v-model="groupName"
           placeholder=" "
-          style="background: white; border: 2px solid #EDEDED; border-radius: 20px;"
+          style="
+            background: white;
+            border: 2px solid #ededed;
+            border-radius: 20px;
+          "
         />
-        <span class="input__label" style="background: white; font-weight: 400; top: 4px;left: 10px;font-size: 14px;">Pick A Fancy Space Name</span>
+        <span
+          class="input__label"
+          style="
+            background: white;
+            font-weight: 400;
+            top: 4px;
+            left: 10px;
+            font-size: 14px;
+          "
+          >Pick A Fancy Space Name</span
+        >
       </label>
 
       <button class="btn-style full rounded" @click="creatNewSpace">
@@ -256,7 +308,7 @@ const connectedGroup = ref(null);
 const loadingSkeleton = ref(true);
 const isLoading = ref(false);
 
-const isPlaying = ref(true);
+const isPlaying = ref(false);
 const contractName = "contract8080.testnet";
 
 const {
