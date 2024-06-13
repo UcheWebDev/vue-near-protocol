@@ -3,17 +3,17 @@
   <div class="headDiv d-flex justify-content-between align-items-center">
     <h1 class="fw-bold">Memory Quest</h1>
     <div class="linkDiv">
-      <button class="ruleButton fw-bold me-1" @click="showAboutModal = true">
+      <button class="btn-style transparent rounded fw-bold me-1" @click="showAboutModal = true">
         About Game
       </button>
       <button
-        class="restartButton fw-bold ms-1"
+        class="btn-style rounded fw-bold ms-1"
         v-if="!isSignedIn"
         @click="signIn"
       >
         Connect
       </button>
-      <button class="restartButton fw-bold ms-1" v-else @click="signOut">
+      <button class="btn-style rounded fw-bold ms-1" v-else @click="signOut">
         Log out
       </button>
     </div>
@@ -28,18 +28,18 @@
     >
       <button
         @click="showJoinModal = true"
-        class="answer startButton d-flex justify-content-center align-items-center fw-bold"
+        class="btn-style large d-flex justify-content-center align-items-center fw-bold"
         :disabled="!isSignedIn"
       >
         STAKE
       </button>
-      <div class="answer">
+      <div class="standard-card">
         <h5>Max Point</h5>
-        <p id="correctScore" class="m-0 p-0" v-if="isSignedIn">
+        <p id="correctScore" class="m-0 p-0 stake-counter" v-if="isSignedIn">
           <!-- {{ currentMoves }} -->
           500
         </p>
-        <p id="correctScore" class="m-0 p-0" v-else>0</p>
+        <p id="correctScore" class="m-0 p-0 stake-counter" v-else>0</p>
       </div>
     </div>
 
@@ -63,7 +63,7 @@
       class="outerDiv d-flex flex-column justify-content-around align-items-center"
     >
       <button
-        class="answer nextButton d-flex justify-content-center align-items-center fw-bold"
+        class="btn-style large d-flex justify-content-center align-items-center fw-bold"
         @click="restartGame"
         v-if="!isPlaying"
         :disabled="!isSignedIn"
@@ -73,15 +73,15 @@
 
       <button
         v-else
-        class="answer nextButton d-flex justify-content-center align-items-center fw-bold"
+        class="btn-style large d-flex justify-content-center align-items-center fw-bold"
         @click="stopGame"
       >
         STOP
       </button>
 
-      <div class="answer">
+      <div class="standard-card">
         <h5>Total Point</h5>
-        <p class="m-0 p-0">{{ getTotalPointsinSpace }}</p>
+        <p class="m-0 p-0 stake-counter">{{ getTotalPointsinSpace }}</p>
       </div>
     </div>
   </div>
