@@ -2,10 +2,10 @@
   <div class="board" v-if="startGame">
     <div class="content">
       <!--dynamic word-->
-      <p class="word fw-bold" style="color: #000" v-if="startGame">
+      <p class="word fw-bold" style="color: #000; font-size: 18px; line-height: normal;" v-if="startGame">
         {{ scrambledWord }}
       </p>
-      <p class="word fw-bold" style="color: #000">Waterfall</p>
+      <p class="word fw-bold" style="color: #000; font-size: 18px; line-height: normal;">Waterfall</p>
 
       <div class="details text-center">
         <!-- <p class="hint">
@@ -151,7 +151,8 @@ watch(
 
 .board .content {
   margin: 25px 20px 35px;
-  padding: 20px;
+  //padding: 20px;
+  padding: 0;
   /* background: #fff; */
   border-radius: 3px;
 }
@@ -169,7 +170,7 @@ watch(
 }
 
 .content .details {
-  margin: 25px 0 20px;
+  margin: 15px 0 10px;
 }
 
 .details p {
@@ -234,8 +235,8 @@ input:focus {
   padding: 10px 0;
   margin: 10px 0;
 }
-
 @media screen and (max-width: 470px) {
+
   .board h2 {
     font-size: 22px;
     padding: 13px 20px;
@@ -246,7 +247,7 @@ input:focus {
     margin-right: -20px;
   }
   .board .content {
-    margin: 20px 20px 30px;
+    margin: 0;
   }
   .details p {
     font-size: 16px;
