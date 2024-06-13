@@ -1,0 +1,44 @@
+<script>
+import { computed } from "@vue/runtime-core";
+export default {
+  emits: ["select-card"],
+  props: {
+    value: {
+      type: String,
+      required: true,
+    },
+    visible: {
+      type: Boolean,
+      default: false,
+    },
+    position: {
+      type: Number,
+      required: true,
+    },
+    matched: {
+      type: Boolean,
+      default: false,
+    },
+    selected: {
+      type: String,
+      required: true,
+    },
+  },
+
+  setup(props, context) {
+    const flippedStyles = computed(() => {
+      if (props.visible) return "is-flipped";
+    });
+
+    const selectCard = () => {
+      context.emit("select-card", {
+        position: props.position,
+        faceValue: props.value,
+        isFlipped: props.visible,
+      });
+    };
+
+    return { flippedStyles, selectCard };
+  },
+};
+</script>

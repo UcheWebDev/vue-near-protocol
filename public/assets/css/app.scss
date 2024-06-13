@@ -1,0 +1,68 @@
+#app {
+    text-align: center;
+    margin-top: 1rem;
+    @media screen and (min-width: 32rem) {
+      margin-top: 4rem;
+    }
+  }
+  
+  .main-header {
+    display: grid;
+    grid-template-areas: "title title" "subtitle subtitle" "timer show-leaderboard";
+    align-items: center;
+  
+    button {
+      grid-area: show-leaderboard;
+      justify-self: right;
+      margin: 0.5rem 0;
+    }
+    time {
+      grid-area: timer;
+      font-weight: bold;
+      font-family: var(--heading-font);
+      font-size: calc(var(--font-lg) * 1.25);
+      justify-self: left;
+      svg {
+        width: 1.75rem;
+        height: 1.75rem;
+        padding-top: 0.5rem;
+      }
+    }
+    h1 {
+      grid-area: title;
+      margin-top: 0;
+    }
+    p {
+      grid-area: subtitle;
+      margin-top: 0;
+    }
+  
+    .title {
+      letter-spacing: 4px;
+      span {
+        zoom: 1.25;
+        transform: rotate(30deg);
+        display: inline-block;
+        margin: 0 0.5rem;
+      }
+      span:first-of-type {
+        transform: rotate(-30deg);
+      }
+  
+      @media screen and (max-width: 385px) {
+        letter-spacing: 2px;
+        line-height: 1.33;
+        span {
+          margin: 0 0.25rem;
+        }
+      }
+    }
+  }
+  
+  a,
+  a:visited,
+  a:active {
+    color: var(--color-white);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-white);
+  }

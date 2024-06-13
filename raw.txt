@@ -1,0 +1,367 @@
+<template>
+  <!-- HEADER SECTION -->
+  <div class="headDiv d-flex justify-content-between align-items-center">
+    <h1 class="fw-bold">Memory Quest</h1>
+    <div class="linkDiv">
+      <button
+        class="ruleButton fw-bold text-light me-1"
+        @click="toggleAboutModal"
+      >
+        About Game
+      </button>
+      <button
+        class="restartButton fw-bold ms-1"
+        v-if="!isSignedIn"
+        @click="signIn"
+      >
+        Connect
+      </button>
+      <button class="restartButton fw-bold ms-1" v-else @click="signOut">
+        Log out
+      </button>
+    </div>
+  </div>
+
+  <!-- CENTRAL PART -->
+  <div
+    class="centralDiv d-flex justify-content-around align-items-center mt-3 mb-4"
+  >
+    <!-- CORRECT SCORE -->
+    <div
+      id="outCorrect"
+      class="outerDiv d-flex flex-column justify-content-around align-items-center"
+    >
+      <button
+        class="answer startButton d-flex justify-content-center align-items-center fw-bold"
+        @click="addStake"
+        :disabled="!isSignedIn"
+      >
+        STAKE
+      </button>
+      <div class="answer">
+        <h5>Moves</h5>
+        <p id="correctScore" class="m-0 p-0" v-if="isSignedIn">
+          {{ currentMoves }}
+        </p>
+        <p id="correctScore" class="m-0 p-0" v-else>0</p>
+      </div>
+    </div>
+
+    <!-- GAMEBOARD -->
+    <div class="mainDiv">
+      <transition-group tag="section" class="game-board" name="shuffle-card ">
+        <CardsComp
+          v-for="card in deck"
+          :key="card.id"
+          :matched="card.matched"
+          :value="card.value"
+          :visible="card.visible"
+          :position="card.position"
+          :selected="selectedDeckName"
+          @select-card="flipCard"
+        />
+      </transition-group>
+    </div>
+
+    <!-- WRONG SCORE -->
+    <div
+      id="outWrong"
+      class="outerDiv d-flex flex-column justify-content-around align-items-center"
+    >
+      <button
+        class="answer nextButton d-flex justify-content-center align-items-center fw-bold"
+        @click="restartGame"
+        :disabled="isDisabledStartBtn"
+      >
+        START
+      </button>
+      <div class="answer">
+        <h5>Mqp</h5>
+        <p class="m-0 p-0">{{ points }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTION SECTION  -->
+  <div class="askDiv text-center">
+    <div v-if="isSignedIn">
+      <h3 id="myQuestion" v-if="!currentQuest">
+        Signed in as <span class="text-success">"{{ accountId }}"</span>
+      </h3>
+      <h3 id="myQuestion" v-else>* {{ currentQuest.description }}</h3>
+    </div>
+    <h3 id="myQuestion fw-bold" v-else>Connect your wallet to join...</h3>
+  </div>
+
+  <!--create modal-->
+  <AboutModal
+    v-if="shouldShowAboutModal"
+    :toggle-about-modal="toggleAboutModal"
+  />
+</template>
+
+<script setup>
+/*eslint-disable*/
+import * as nearAPI from "near-api-js";
+
+import { onMounted, ref, watch, computed, onBeforeUnmount } from "vue";
+import CardsComp from "./components/CardsComp.vue";
+import ModalForm from "./components/modal/ModalForm.vue";
+import JoinModal from "./components/modal/JoinModal.vue";
+import AboutModal from "./components/modal/AboutModal.vue";
+import {
+  animalsDeck,
+  fruitsDeck,
+  movieDeck,
+  gemsDeck,
+} from "./utils/cardsDeck";
+
+import { useWallet } from "./composables/useWallet";
+
+const deck = ref([]);
+const matches = ref([]);
+const clicks = ref(0);
+const seconds = ref(0);
+const isGameOver = ref(true);
+const isPlaying = ref(false);
+const shouldShowAboutModal = ref(false);
+const viewResult = ref(0);
+const points = ref(0);
+
+const totalExpectedMoves = ref(16);
+const currentMoves = ref(0);
+
+const isDisabledStartBtn = computed(() => {
+  return viewResult.value < 10;
+});
+
+const quests = [
+  { id: 1, description: "Find 2   Matches", targetMatches: 2 },
+  { id: 2, description: "Find 3 Matches", targetMatches: 3 },
+  { id: 3, description: "Complete within 30 seconds", timeLimit: 30 },
+];
+
+const currentQuest = ref(null);
+
+const {
+  accountId,
+  isSignedIn,
+  startUp,
+  signIn,
+  signOut,
+  viewMethod,
+  callMethod,
+} = useWallet({
+  networkId: "testnet",
+  createAccessKeyFor: "jenny6564.testnet",
+});
+
+const toggleAboutModal = (status) =>
+  status
+    ? (shouldShowAboutModal.value = status)
+    : (shouldShowAboutModal.value = !shouldShowAboutModal.value);
+
+const accountChangeHook = (signedAccountId) => {
+  console.log("Signed in account:", signedAccountId);
+};
+
+const hideCards = () => {
+  deck.value.forEach((card) => (card.visible = false));
+};
+
+const showCards = () => {
+  deck.value.forEach((card) => (card.visible = true));
+};
+
+const updateDeck = (selectedDeck) => {
+  deck.value = selectedDeck.map((card, index) => ({
+    id: card,
+    value: card.split("-")[0],
+    position: index,
+    visible: true,
+    matched: false,
+  }));
+};
+
+const assignRandomQuest = () => {
+  const randomIndex = Math.floor(Math.random() * quests.length);
+  currentQuest.value = quests[randomIndex];
+};
+
+const shuffleCards = () => {
+  const cardSet = [...deck.value];
+  for (let i = cardSet.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cardSet[i], cardSet[j]] = [cardSet[j], cardSet[i]];
+  }
+  deck.value = cardSet.map((card, index) => ({
+    ...card,
+    matched: false,
+    visible: true,
+    position: index,
+  }));
+};
+
+const restartGame = () => {
+  assignRandomQuest();
+  shuffleCards();
+  isGameOver.value = false;
+  clicks.value = 0;
+  seconds.value = 0;
+  matches.value.length = 0;
+  // setTimeout(hideCards, 1500);
+  setTimeout(() => {
+    deck.value[0].visible = true;
+    deck.value.slice(1).forEach((card) => (card.visible = false));
+  }, 1500);
+  isPlaying.value = true; // Set game state to true when restarting
+};
+
+const flipCard = (payload) => {
+  if (
+    payload.isFlipped ||
+    matches.value.some((card) => card.position === payload.position)
+  )
+    return;
+  // clicks.value += 1;
+  deck.value[payload.position].visible = true;
+  matches.value.push(payload);
+  if (matches.value.length === 2) {
+    clicks.value += 1;
+    handleMatches();
+  }
+};
+
+const handleMatches = () => {
+  if (matches.value.length === 2) {
+    const [card1, card2] = matches.value;
+    if (card1.faceValue === card2.faceValue) {
+      currentMoves.value += 1;
+      callPointsIncrement();
+
+      deck.value[card1.position].matched = true;
+      deck.value[card2.position].matched = true;
+      matches.value.length = 0;
+
+    } else {
+      setTimeout(() => {
+        currentMoves.value += 1;
+        // callMovesDeduction();
+        deck.value[card1.position].visible = false;
+        deck.value[card2.position].visible = false;
+        matches.value.length = 0;
+        // restartGame();
+      }, 750);
+    }
+    matches.value.length = 0;
+  }
+};
+
+// Deck Initialization
+const decks = [
+  { name: "icons", deck: gemsDeck },
+  // { name: "fruit-res", deck: fruitsDeck },
+  // { name: "movie-res", deck: movieDeck },
+];
+const randomIndex = Math.floor(Math.random() * decks.length);
+const selectedDeck = decks[randomIndex].deck;
+const selectedDeckName = decks[randomIndex].name;
+updateDeck(selectedDeck);
+
+// Watchers
+watch(matches, handleMatches, { deep: true });
+
+watch(viewResult, (newPoints) => {
+  if (newPoints < 10) {
+    showCards();
+  }
+});
+
+// Near contract calls
+const getTotalMoves = async () => {
+  try {
+    const result = await viewMethod({
+      contractId: "jenny6564.testnet",
+      method: "getMoves",
+      args: { staker: accountId.value },
+    });
+    viewResult.value = result;
+  } catch (error) {
+    console.error("Error calling view method:", error);
+  }
+};
+
+// Near contract calls
+const getTotalPoints = async () => {
+  try {
+    const result = await viewMethod({
+      contractId: "jenny6564.testnet",
+      method: "getPoints",
+      args: { staker: accountId.value },
+    });
+    points.value = result;
+  } catch (error) {
+    console.error("Error calling view method:", error);
+  }
+};
+
+const addStake = async () => {
+  const amt = nearAPI.utils.format.parseNearAmount("1");
+  try {
+    await callMethod({
+      contractId: "jenny6564.testnet",
+      method: "create_stake",
+      args: {},
+      gas: "30000000000000",
+      deposit: amt,
+    });
+  } catch (error) {
+    console.error("Error calling create_stake:", error);
+  }
+};
+
+const callMovesDeduction = async () => {
+  viewResult.value -= 2;
+  try {
+    const result = await callMethod({
+      contractId: "jenny6564.testnet",
+      method: "deduct_moves",
+      args: {},
+      gas: "30000000000000",
+    });
+
+    console.log("Transaction Result:", result);
+  } catch (error) {
+    console.error("Error calling deduct_moves:", error);
+  }
+};
+
+const callPointsIncrement = async () => {
+  points.value += 10;
+  try {
+    const result = await callMethod({
+      contractId: "jenny6564.testnet",
+      method: "increment_points",
+      args: {},
+      gas: "30000000000000",
+    });
+
+    console.log("Transaction Result:", result);
+  } catch (error) {
+    console.error("Error calling deduct_moves:", error);
+  }
+};
+
+// Lifecycle hook
+onMounted(async () => {
+  await startUp(accountChangeHook);
+  await getTotalMoves();
+  await getTotalPoints();
+  showCards();
+});
+</script>
+
+<style scoped>
+@import "@/assets/css/layout.css";
+</style>
+

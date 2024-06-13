@@ -1,0 +1,453 @@
+/* GENERAL STYLING */
+@import '@/assets/css/fonts.css';
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    width: 100%;
+    height: 100vh;
+    background-color: #F3EBEA;
+    color: rgb(29, 63, 90);
+    padding-top: 70px;
+    font-family: 'Cabinet Grotesk',  sans-serif;
+  }
+
+  .text-styled{
+     font-family: 'Bubblegum Sans',  sans-serif;
+  }
+
+  button {
+    border-style: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+  }
+  i {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  i:hover {
+    color: rgb(253, 162, 21);
+  }
+  span {
+    /* color: #367e18; */
+    /* text-shadow: 2px 2px 4px #367e18; */
+    font-weight: bold;
+  }
+  b {
+    color: #367e18;
+  }
+  /* HEADER SECTION */
+  /* .headDiv {
+    box-sizing: border-box;
+    padding: 20px 150px;
+    
+  } */
+
+  .headDiv {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    /* background-color: #ececec; */
+    /* background-color: #fff;  */
+    padding: 10px 20px; /* Adjust padding as needed */
+    z-index: 1000; /* Ensure the header stays above other elements */
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  */
+    
+  }
+
+   h1{
+    font-family: 'Bubblegum Sans',  sans-serif;
+  }
+  
+
+
+  .ruleButton {
+    background-color: #fda215;
+    color: #000;
+  }
+  .ruleButton:active {
+    position: relative;
+    top: 2px;
+  }
+  .restartButton {
+    background-color: #fce823;
+    color: rgb(29, 63, 90);
+  }
+  .restartButton:active {
+    position: relative;
+    top: 2px;
+  }
+  
+  /* CHECK SECTION */
+  .correctWrong {
+    color: gainsboro;
+  }
+  
+  /* GAME PLAYGROUND SECTION  */
+  .mainDiv {
+    width: 30%;
+    height: 63%;
+    background-color:#EBDEDC;
+    border:2px solid #d4c7c5;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 20px 10px;
+  }
+  
+  /* QUESTION SECTION  */
+  .askDiv {
+    padding-top: 20px;
+  }
+  
+  /* ANSWER SECTION  */
+  .outerDiv {
+    width: 15%;
+  }
+  .answer {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0.5rem 0.5rem black;
+    text-align: center;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+
+  .action-btn{
+    width: 100%;
+    border-radius: .5rem;
+    /* border: 2px solid rgb(29, 63, 90); */
+    box-shadow: 0.5rem 0.5rem black;
+    
+    text-align: center;
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+
+  .answer p {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  .startButton {
+    color: #000;
+    background-color: #fda215;
+    padding: 15px 0;
+  }
+  .startButton:active {
+    position: relative;
+    top: 2px;
+  }
+  .nextButton {
+    background-color: #fce823;
+    color: rgb(29, 63, 90);
+    padding: 15px 0;
+  }
+  .nextButton:active {
+    position: relative;
+    top: 2px;
+  }
+  .timerDiv {
+    font-size: 1.1rem;
+    padding: 15px 0;
+    background-color: #fce823;
+  }
+  #correctScore {
+    color: #367e18;
+  }
+  #wrongScore {
+    color: red;
+  }
+
+  .centralDiv {
+    margin-top: 40px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* FINAL ANSWER DIV SECTION  */
+  .finalDiv {
+    position: absolute;
+    top: 15%;
+    left: 2%;
+    width: 96%;
+    height: 70%;
+    background-color: rgb(241, 185, 101);
+    color: rgb(49, 72, 90);
+    border: 2px solid rgb(29, 63, 90);
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: none;
+  }
+  .finalDiv button {
+    background-color: #fce823;
+    color: rgb(29, 63, 90);
+    padding: 15px 50px;
+    border-radius: 10px;
+    border: 1px solid rgb(49, 72, 90);
+  }
+  .finalDiv button:hover {
+    color: #fce823;
+    background-color: rgb(29, 63, 90);
+  }
+  .finalDiv button:active {
+    position: relative;
+    top: 2px;
+  }
+  #mistake {
+    color: red;
+  }
+  
+  /* RULES SECTION DIV  */
+  .rulesDiv {
+    position: absolute;
+    left: 2%;
+    top: 15%;
+    width: 96%;
+    height: 70%;
+    background-color: #fce823;
+    color: rgb(29, 63, 90);
+    border: 3px solid rgb(29, 63, 90);
+    border-radius: 20px;
+    display: none;
+  }
+  .rulesDiv p {
+    font-size: 1.2rem;
+  }
+  .rulesDiv li {
+    font-size: 1rem;
+  }
+  .displayRule {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* REFRESH SECTION DIV  */
+  .refreshDiv {
+    font-family: "Lobster";
+    background-color: #fce823;
+    border: 3px solid rgb(49, 72, 90);
+    border-radius: 20px;
+    width: 96%;
+    height: 96%;
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    display: none;
+  }
+  .showRefresh {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .refreshDiv h1 {
+    font-size: 10rem;
+    font-weight: bold;
+  }
+  
+  /* JAVASCRIPT STYLING */
+  .redIcon {
+    color: red;
+  }
+  .controlIcon {
+    font-weight: bold;
+  }
+
+
+  /* input*/
+  .input {
+    position: relative;
+  }
+  
+  .input__label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: calc(.5rem * 0.75) calc(.5rem * 0.5);
+    margin: calc(.5rem * 0.75 + 3px) calc(.5rem * 0.5);
+    background: pink;
+    white-space: nowrap;
+    transform: translate(0, 0);
+    transform-origin: 0 0;
+    background: #fff;
+    transition: transform 120ms ease-in;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+  
+  .input__field {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 2px solid currentColor;
+    padding: calc(.5rem * 1.5) .5rem;
+    color: currentColor;
+    background: transparent;
+    border-radius: 4px;
+  }
+  
+  .input__field:focus + .input__label,
+  .input__field:not(:placeholder-shown) + .input__label {
+    transform: translate(0.25rem, -65%) scale(0.8);
+    /* color: var(--color-light); */
+  }
+  
+  /* MEDIA QUERIES FOR IPAD  */
+  @media (max-width: 375px) {
+    .mainDiv {
+      width: 50%;
+    }
+    .headDiv {
+      padding: 20px 50px;
+    }
+    .finalDiv,
+    .rulesDiv {
+      top: 8%;
+      left: 2%;
+      width: 96%;
+      height: 60%;
+    }
+  }
+  
+  /* MEDIA QUERIES FOR SMARTPHONES */
+  @media (max-width: 768px) {
+    .headDiv {
+      flex-direction: column;
+      padding: 2px 20px;
+      padding-bottom: 0;
+    }
+    .linkDiv {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .ruleButton,
+    .restartButton {
+      padding: 5px 20px;
+      border-radius: 10px;
+    }
+    .mainDiv {
+      width: 94%;
+    }
+    .circleDiv {
+      width: 70px;
+      height: 70px;
+    }
+    i {
+      font-size: 2.5rem;
+    }
+    .centralDiv {
+      margin-top: 40px !important;
+      margin-bottom: 10px !important;
+    }
+    .askDiv {
+      padding-top: 5px;
+    }
+    .startButton,
+    .nextButton {
+      padding: 7px 0;
+    }
+    #outCorrect,
+    #outWrong {
+      position: absolute;
+      bottom: 1%;
+      width: 44%;
+    }
+    #outCorrect {
+      left: 2%;
+    }
+    #outWrong {
+      right: 2%;
+    }
+    .answer {
+      margin: 5px 0;
+      padding: 5px 0;
+    }
+    .rulesDiv {
+      top: 12%;
+      left: 1%;
+      width: 98%;
+      height: 87.5%;
+      box-sizing: border-box;
+      padding: 0 3px;
+    }
+    .finalDiv {
+      top: 12%;
+      left: 1%;
+      width: 98%;
+      height: 87.5%;
+    }
+    .congH3 {
+      margin-bottom: 25px !important;
+    }
+    .congH1 {
+      margin-bottom: 25px !important;
+    }
+    .quitButton,
+    .roundButton {
+      padding: 5px 20px !important;
+    }
+    .refreshDiv {
+      width: 98%;
+      height: 98%;
+      top: 1%;
+      left: 1%;
+    }
+    .refreshDiv h1 {
+      font-size: 4.5rem;
+    }
+  }
+
+   /* GRID  */
+   .game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 70px);
+    grid-template-rows: repeat(4, 70px);
+    width: 100%;
+    max-width: 50rem;
+    gap: 5px;
+    margin: 1rem 0;
+    padding: 0 5px;
+    --border-width: 5px;
+    position: relative;
+    justify-content: center;
+  }
+
+  .game-board:after {
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--border-width));
+    left: 0;
+    height: calc(100% + var(--border-width) * 2);
+    width: 100%;
+    background: linear-gradient(
+      60deg,
+      #f79533,
+      #f37055,
+      #ef4e7b,
+      #a166ab,
+      #5073b8,
+      #1098ad,
+      #07b39b,
+      #6fba82
+    );
+    border-radius: var(--border-radius);
+    z-index: -1;
+    animation: gradient 5s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }

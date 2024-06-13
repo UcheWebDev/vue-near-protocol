@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { providers } from 'near-api-js';
-import { distinctUntilChanged, map } from 'rxjs';
+// import { distinctUntilChanged, map } from 'rxjs';
 import '@near-wallet-selector/modal-ui/styles.css';
 import { setupModal } from '@near-wallet-selector/modal-ui';
 import { setupWalletSelector } from '@near-wallet-selector/core';
@@ -15,7 +15,7 @@ export function useWallet({ networkId = 'testnet', createAccessKeyFor = undefine
     const isSignedIn = ref(false);
     const selector = ref(null);
 
-    const startUp = async (accountChangeHook) => {
+    const startUp = async () => {
         selector.value = await setupWalletSelector({
             network: networkId,
             modules: [setupMyNearWallet(), setupHereWallet()],
@@ -25,15 +25,15 @@ export function useWallet({ networkId = 'testnet', createAccessKeyFor = undefine
         isSignedIn.value = walletSelector.isSignedIn();
         accountId.value = isSignedIn.value ? walletSelector.store.getState().accounts[0].accountId : '';
 
-        walletSelector.store.observable
-            .pipe(
-                map(state => state.accounts),
-                distinctUntilChanged()
-            )
-            .subscribe(accounts => {
-                const signedAccount = accounts.find(account => account.active)?.accountId;
-                accountChangeHook(signedAccount);
-            });
+        // walletSelector.store.observable
+        //     .pipe(
+        //         map(state => state.accounts),
+        //         distinctUntilChanged()
+        //     )
+        //     .subscribe(accounts => {
+        //         const signedAccount = accounts.find(account => account.active)?.accountId;
+        //         accountChangeHook(signedAccount);
+        //     });
 
         return accountId.value;
     };
@@ -45,8 +45,9 @@ export function useWallet({ networkId = 'testnet', createAccessKeyFor = undefine
 
     const signOut = async () => {
         const selectedWallet = await (await selector.value).wallet();
-        selectedWallet.signOut();
-    };
+        await selectedWallet.signOut();
+        isSignedIn.value = false
+    };  
 
     const viewMethod = async ({ contractId, method, args = {} }) => {
         const url = `https://rpc.${networkId}.near.org`;
