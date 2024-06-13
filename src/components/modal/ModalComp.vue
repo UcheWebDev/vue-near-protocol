@@ -17,7 +17,7 @@
     </div>
   </div>
 </template>
-  
+
   <script setup>
 /*eslint-disable*/
 import { defineProps, defineEmits } from "vue";
@@ -40,7 +40,7 @@ const closeModal = () => {
   emit('close');
 };
 </script>
-  
+
   <style >
 .modal-header {
   align-items: baseline;
@@ -81,12 +81,11 @@ const closeModal = () => {
   max-width: 500px;
   opacity: 1;
   transform: translateY(1);
+  background: white!important;
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
   width: 100%;
   z-index: 1;
-  border-top-right-radius: 50px;
-  border-bottom-left-radius: 50px;
+  border-radius: 8px;
   padding: 30px;
 }
 </style>
-  

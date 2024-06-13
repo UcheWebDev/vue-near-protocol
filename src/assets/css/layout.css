@@ -96,6 +96,10 @@
      max-width: 200px;
    }
 
+  .btn-style.full{
+     width: 100%;
+   }
+
    .btn-style:hover{
      background: transparent;
      color: black;

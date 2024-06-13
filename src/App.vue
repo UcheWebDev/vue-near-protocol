@@ -29,8 +29,9 @@
       <button
         @click="showJoinModal = true"
         class="btn-style large d-flex justify-content-center align-items-center fw-bold"
-        :disabled="!isSignedIn"
+
       >
+<!--        :disabled="!isSignedIn"-->
         STAKE
       </button>
       <div class="standard-card">
@@ -125,17 +126,18 @@
     :header="'Stake...'"
     v-model:isVisible="showJoinModal"
     @close="handleModalClose"
+    style="padding: 0 20px;"
   >
-    <div class="d-flex justify-content-between" v-if="actionPanel">
+    <div class="d-flex justify-content-between gap-2 mt-4" v-if="actionPanel">
       <button
-        class="action-btn startButton fw-bold"
+        class="btn-style large"
         @click="createNewRoom"
         v-if="!canParticipate"
       >
         CREATE
       </button>
       <button
-        class="action-btn nextButton d-flex justify-content-center align-items-center fw-bold ms-4"
+        class="btn-style large"
         @click="joinExistingRoom"
         v-if="!canParticipate"
       >
@@ -158,11 +160,13 @@
           type="text"
           v-model="joinGroupName"
           placeholder=" "
+          style="background: white; border: 2px solid #EDEDED; border-radius: 20px;"
+
         />
-        <span class="input__label">Enter Space Name</span>
+        <span class="input__label" style="background: white; font-weight: 400; top: 4px;left: 10px;font-size: 14px;">Enter Space Name</span>
       </label>
 
-      <button class="action-btn startButton fw-bold" @click="joinExistingSpace">
+      <button class="btn-style full rounded" @click="joinExistingSpace">
         <div
           class="spinner-border spinner-border-sm text-dark"
           role="status"
@@ -206,11 +210,12 @@
           type="text"
           v-model="groupName"
           placeholder=" "
+          style="background: white; border: 2px solid #EDEDED; border-radius: 20px;"
         />
-        <span class="input__label">Pick A Fancy Space Name</span>
+        <span class="input__label" style="background: white; font-weight: 400; top: 4px;left: 10px;font-size: 14px;">Pick A Fancy Space Name</span>
       </label>
 
-      <button class="action-btn startButton fw-bold" @click="creatNewSpace">
+      <button class="btn-style full rounded" @click="creatNewSpace">
         <div
           class="spinner-border spinner-border-sm text-light"
           role="status"
