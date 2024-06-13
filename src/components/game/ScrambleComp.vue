@@ -36,7 +36,7 @@
     </div>
   </div>
 </template>
-  
+
   <script setup>
 /*eslint-disable*/
 import { ref, onMounted, watch, defineProps, defineEmits } from "vue";
@@ -125,7 +125,7 @@ watch(
 //   initGame();
 // });
 </script>
-  
+
   <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
@@ -270,4 +270,3 @@ input:focus {
   }
 }
 </style>
-  
