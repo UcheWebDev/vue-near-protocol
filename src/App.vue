@@ -29,9 +29,8 @@
       <button
         @click="showJoinModal = true"
         class="btn-style large d-flex justify-content-center align-items-center fw-bold"
-
+        :disabled="!isSignedIn"
       >
-<!--        :disabled="!isSignedIn"-->
         STAKE
       </button>
       <div class="standard-card">
