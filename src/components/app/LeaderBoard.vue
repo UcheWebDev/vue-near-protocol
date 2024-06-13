@@ -44,7 +44,7 @@ const sortedPlayers = computed(() => {
 
 <style lang="scss" scoped>
 .main {
-  background-color: #EBDEDC;
+  // background-color: #EBDEDC;
   // -webkit-box-shadow: 0px 5px 15px 8px #e4e7fb;
   // box-shadow: 0px 5px 15px 8px #e4e7fb;
   display: flex;
