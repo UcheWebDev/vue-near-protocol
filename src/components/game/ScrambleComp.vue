@@ -4,7 +4,7 @@
       <!--dynamic word-->
       <p
         class="word fw-bold"
-        style="color: #000; font-size: 18px; line-height: normal"
+        style="color: #000; line-height: normal"
         v-if="startGame"
       >
         {{ scrambledWord }}
@@ -12,10 +12,10 @@
       <!-- <p class="word fw-bold" style="color: #000; font-size: 18px; line-height: normal;">Waterfall</p> -->
 
       <div class="details text-center">
-        <p class="hint">
+        <!-- <p class="hint">
           Hint: <span>{{ currentHint }}</span>
-        </p>
-        <p class="time font-styled">
+        </p> -->
+        <p class="time font-styled mb-3" style="font-family:'Bubblegum Sans', sans-serif">
           Time Left:
           <span
             ><b>{{ timeLeft }}</b
@@ -36,8 +36,9 @@
           Use Hint
         </button> -->
         <button class="btn-style check-word ms-3" @click="checkWord">
-          Check
+          Check Word
         </button>
+        <button class="btn-style transparent check-word ms-3">Use Hint</button>
       </div>
     </div>
   </div>
@@ -52,7 +53,7 @@ const props = defineProps({
   startGame: Boolean,
 });
 
-const emit = defineEmits(["deductPoints"]);
+const emit = defineEmits(["deductPoints","addUserPoints"]);
 
 const timeLeft = ref(30);
 const userInput = ref("");
@@ -106,7 +107,8 @@ const initGame = () => {
 
 const checkWord = () => {
   if (userInput.value.toLowerCase() === correctWord.value) {
-    alert("Correct!");
+    // alert("Correct!");
+    emit("addUserPoints");
     initGame();
   } else {
     alert("Incorrect, try again.");
@@ -193,15 +195,15 @@ watch(
   border: none;
   padding: 0;
   width: 10.5ch;
-  background: repeating-linear-gradient(
+  /* background: repeating-linear-gradient(
       90deg,
       dimgrey 0,
       dimgrey 1ch,
       transparent 0,
       transparent 1.5ch
     )
-    0 100%/10ch 2px no-repeat;
-  font: 5ch droid sans mono, consolas, monospace;
+    0 100%/10ch 2px no-repeat; */
+  font: 4ch droid sans mono, consolas, monospace;
   letter-spacing: 0.5ch;
 }
 
@@ -235,7 +237,7 @@ input:focus {
 }
 
 .check-word {
-  width: 100%;
+  width: 50%;
   text-align: center;
   padding: 10px 0;
   margin: 10px 0;
@@ -264,7 +266,7 @@ input:focus {
   .buttons button {
     padding: 14px 0;
     font-size: 16px;
-    /* width: calc(100% / 2 - 7px); */
+    width: calc(100% / 2 - 7px);
   }
 }
 </style>

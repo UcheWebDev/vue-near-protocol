@@ -12,8 +12,10 @@
         <table>
           <tr v-for="(member, index) in sortedPlayers" :key="member.accountId">
             <td class="number">{{ index + 1 }}</td>
-            <td class="name">{{ member.accountId }}</td>
-            <td class="points">{{ member.totalPoints }} PTS</td>
+            <td class="name text-capitalize">
+              {{ removeWordSuffix(member.accountId) }}
+            </td>
+            <td class="points">{{ member.totalPoints }}</td>
           </tr>
         </table>
       </div>
@@ -24,6 +26,7 @@
 <script setup>
 /*eslint-disable*/
 import { defineProps, computed } from "vue";
+import { removeWordSuffix } from "@/utils/helpers";
 
 const props = defineProps({
   members: {

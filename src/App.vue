@@ -1,7 +1,7 @@
 <template>
   <!-- HEADER SECTION -->
   <div class="headDiv d-flex justify-content-between align-items-center">
-    <h1 class="fw-bold">Memory Quest</h1>
+    <h1 class="fw-bold">Word Quest</h1>
     <div class="linkDiv">
       <button
         class="btn-style transparent rounded fw-bold me-1"
@@ -40,7 +40,7 @@
         <h5>Max Point</h5>
         <p id="correctScore" class="m-0 p-0 stake-counter" v-if="isSignedIn">
           <!-- {{ currentMoves }} -->
-          500
+          2000
         </p>
         <p id="correctScore" class="m-0 p-0 stake-counter" v-else>0</p>
       </div>
@@ -56,6 +56,7 @@
       <!-- <CardsComp :startGame="isPlaying" /> -->
       <ScrambleComp
         :startGame="isPlaying"
+        @addUserPoints="callPointsAddition"
         @deductPoints="callPointsDeduction"
       />
     </div>
@@ -69,7 +70,7 @@
         class="btn-style large d-flex justify-content-center align-items-center fw-bold"
         @click="restartGame"
         v-if="!isPlaying"
-        :disabled="!isSignedIn"
+        :disabled="!hasFourMembers"
       >
         PLAY
       </button>
@@ -84,7 +85,10 @@
 
       <div class="standard-card">
         <h5>Total Point</h5>
-        <p class="m-0 p-0 stake-counter">{{ getTotalPointsinSpace }}</p>
+        <p class="m-0 p-0 stake-counter" v-if="isSignedIn">
+          {{ getTotalPointsinSpace }}
+        </p>
+        <p class="m-0 p-0 stake-counter" v-else>{{ getTotalPointsinSpace }}</p>
       </div>
     </div>
   </div>
@@ -99,27 +103,26 @@
       </div>
     </div>
     <h3 id="myQuestion fw-bold text-capitalize" v-else>
-      <span>Connect your wallet to join !</span>
+      <span>connect your wallet !</span>
     </h3>
   </div>
 
   <!-- About Modal -->
   <ModalComp :header="'About Game'" v-model:isVisible="showAboutModal">
     <p>
-      Welcome to Memory Quest, a groundbreaking Web 3 game that combines the
-      excitement of classic memory challenges with the power and security of
-      blockchain technology. In Memory Quest, players engage in a stimulating
-      memory game where the stakes are higher, and the rewards are digital and
-      decentralized.
+      Welcome to Word Quest, a groundbreaking Web 3 game that combines the
+      excitement of classic word scramble challenges with the power and security
+      of blockchain technology.
     </p>
 
     <h5>How It Works</h5>
     <p>
-      Memory Quest leverages near protocol smart contracts to provide a
-      transparent, fair, and secure gaming experience. Players connect their
-      near wallets and stake no less than equal to 1 NEAR to participate in
-      daily game moves to accumulate memory quest points. see below the worth of
-      each memory quest points (MQP)
+      Word Quest leverages near protocol smart contracts to provide a
+      transparent, fair, stake & play gamefi experience. it is an engaging game
+      that tests your word and dedication skills ! In this game, players compete
+      to unscramble words as quickly as possible accumulating points. The player
+      who accumulates the max points takes home the total stakes contributed by
+      all other players.
     </p>
   </ModalComp>
 
@@ -333,6 +336,11 @@ const getTotalPointsinSpace = computed(() => {
   return points;
 });
 
+// check total members
+const hasFourMembers = computed(() => {
+  return spaceMembers.value.length === 4;
+});
+
 const groupName = ref(null);
 const joinGroupName = ref(null);
 const leaveGroupName = ref(null);
@@ -408,7 +416,7 @@ const getTotalSpaceMembers = async () => {
     connectedGroup.value = groupId;
     loadingSkeleton.value = false;
   } catch (error) {
-    console.error("Error calling view method:", error);
+    console.error("Error calling getTotalSpaceMembers:", error);
   }
 };
 
@@ -427,7 +435,7 @@ const creatNewSpace = async () => {
     getTotalSpaceMembers();
     handleModalClose();
   } catch (error) {
-    console.error("Error calling view method:", error);
+    console.error("Error calling creatNewSpace:", error);
   }
 };
 
@@ -445,7 +453,7 @@ const joinExistingSpace = async () => {
     getTotalSpaceMembers();
     handleModalClose();
   } catch (error) {
-    console.error("Error calling view method:", error);
+    console.error("Error calling joinExistingSpace:", error);
   }
 };
 
@@ -462,7 +470,7 @@ const leaveConnectGroup = async () => {
     getTotalSpaceMembers();
     handleModalClose();
   } catch (error) {
-    console.error("Error calling view method:", error);
+    console.error("Error calling leaveConnectGroup:", error);
   }
 };
 
@@ -477,7 +485,22 @@ const callPointsDeduction = async () => {
 
     getTotalSpaceMembers();
   } catch (error) {
-    console.error("Error calling view method:", error);
+    console.error("Error calling callPointsDeduction:", error);
+  }
+};
+
+const callPointsAddition = async () => {
+  try {
+    isLoading.value = true;
+    const result = await callMethod({
+      contractId: contractName,
+      method: "update_user_points",
+      args: { groupName: connectedGroup.value },
+    });
+
+    getTotalSpaceMembers();
+  } catch (error) {
+    console.error("Error calling callPointsAddition:", error);
   }
 };
 

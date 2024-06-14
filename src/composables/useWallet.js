@@ -47,7 +47,8 @@ export function useWallet({ networkId = 'testnet', createAccessKeyFor = undefine
         const selectedWallet = await (await selector.value).wallet();
         await selectedWallet.signOut();
         isSignedIn.value = false
-    };  
+        // localStorage.removeItem("groupName");
+    };
 
     const viewMethod = async ({ contractId, method, args = {} }) => {
         const url = `https://rpc.${networkId}.near.org`;
