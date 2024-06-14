@@ -7,17 +7,19 @@
         class="btn-style transparent rounded fw-bold me-1"
         @click="showAboutModal = true"
       >
-        About Game
+        <span class="material-symbols-outlined"> info </span>
+        How To Play
       </button>
       <button
         class="btn-style rounded fw-bold ms-1"
         v-if="!isSignedIn"
         @click="signIn"
       >
+        <span class="material-symbols-outlined"> cloud_upload </span>
         Connect
       </button>
       <button class="btn-style rounded fw-bold ms-1" v-else @click="signOut">
-        Log out
+        <span class="material-symbols-outlined"> logout </span> Log out
       </button>
     </div>
   </div>
@@ -34,7 +36,8 @@
         class="btn-style large d-flex justify-content-center align-items-center fw-bold"
         :disabled="!isSignedIn"
       >
-        STAKE
+        <span class="material-symbols-outlined"> person_add </span>
+        JOIN
       </button>
       <div class="standard-card">
         <h5>Max Point</h5>
@@ -72,6 +75,7 @@
         v-if="!isPlaying"
         :disabled="!hasFourMembers"
       >
+        <span class="material-symbols-outlined"> play_circle </span>
         PLAY
       </button>
 
@@ -80,6 +84,7 @@
         class="btn-style large d-flex justify-content-center align-items-center fw-bold"
         @click="stopGame"
       >
+        <span class="material-symbols-outlined"> close </span>
         STOP
       </button>
 
@@ -102,8 +107,8 @@
         </h3>
       </div>
     </div>
-    <h3 id="myQuestion fw-bold text-capitalize" v-else>
-      <span>connect your wallet !</span>
+    <h3 id="myQuestion fw-bold text-capitalize text-styled" v-else>
+      <span class="text-styled">connect your wallet !</span>
     </h3>
   </div>
 
@@ -128,7 +133,7 @@
 
   <!-- Action Modal-->
   <ModalComp
-    :header="'Stake...'"
+    :header="'..'"
     v-model:isVisible="showJoinModal"
     @close="handleModalClose"
     style="padding: 0 20px"
@@ -149,14 +154,14 @@
         JOIN
       </button>
       <button
-        class="btn-style large"
+        class="btn-style large rounded"
         @click="LeaveJoinedRoom"
         v-if="canParticipate"
       >
         LEAVE
       </button>
       <button
-        class="btn-style large"
+        class="btn-style rounded large transparent"
         @click="LeaveJoinedRoom"
         v-if="canParticipate"
       >

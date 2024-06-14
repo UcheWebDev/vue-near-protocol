@@ -2,11 +2,7 @@
   <div class="board" v-if="startGame">
     <div class="content">
       <!--dynamic word-->
-      <p
-        class="word fw-bold"
-        style="color: #000; line-height: normal"
-        v-if="startGame"
-      >
+      <p class="word fw-bold" style="line-height: normal" v-if="startGame">
         {{ scrambledWord }}
       </p>
       <!-- <p class="word fw-bold" style="color: #000; font-size: 18px; line-height: normal;">Waterfall</p> -->
@@ -15,7 +11,10 @@
         <!-- <p class="hint">
           Hint: <span>{{ currentHint }}</span>
         </p> -->
-        <p class="time font-styled mb-3" style="font-family:'Bubblegum Sans', sans-serif">
+        <p
+          class="time font-styled mb-3"
+          style="font-family: 'Bubblegum Sans', sans-serif"
+        >
           Time Left:
           <span
             ><b>{{ timeLeft }}</b
@@ -35,10 +34,12 @@
         <!-- <button class="refresh-word answer" @click="refreshWord">
           Use Hint
         </button> -->
-        <button class="btn-style check-word ms-3" @click="checkWord">
+        <button class="btn-style check-word rounded ms-3" @click="checkWord">
           Check Word
         </button>
-        <button class="btn-style transparent check-word ms-3">Use Hint</button>
+        <button class="btn-style transparent rounded check-word ms-3">
+          Use Hint
+        </button>
       </div>
     </div>
   </div>
@@ -53,7 +54,7 @@ const props = defineProps({
   startGame: Boolean,
 });
 
-const emit = defineEmits(["deductPoints","addUserPoints"]);
+const emit = defineEmits(["deductPoints", "addUserPoints"]);
 
 const timeLeft = ref(30);
 const userInput = ref("");
@@ -195,6 +196,7 @@ watch(
   border: none;
   padding: 0;
   width: 10.5ch;
+  background: #f1f4f5;
   /* background: repeating-linear-gradient(
       90deg,
       dimgrey 0,
